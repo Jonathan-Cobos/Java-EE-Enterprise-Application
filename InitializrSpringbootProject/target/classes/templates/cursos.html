@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Lista de Cursos</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Código Curso</th>
+            <th>Nombre Curso</th>
+            <th>Créditos</th>
+            <th>Semestre</th>
+            <th>Número de Estudiantes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${listaCursos}">
+            <td th:text="${c.codigocurso}"></td>
+            <td th:text="${c.nombreCurso}"></td>
+            <td th:text="${c.numCreditos}"></td>
+            <td th:text="${c.semestre}"></td>
+            <td th:text="${c.nuEstudientes}"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

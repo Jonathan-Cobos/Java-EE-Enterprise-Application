@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Relaciones Estudiantes - Cursos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #dddddd;
+        }
+        .cursos-list {
+            background-color: #f9f9f9;
+        }
+        .vacio {
+            font-style: italic;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Relaciones Estudiantes - Cursos</h1>
+
+<h2>Estudiantes y sus Cursos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID Estudiante</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Cursos Inscritos</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="e : ${estudiantes}">
+            <td th:text="${e.id}"></td>
+            <td th:text="${e.nombre}"></td>
+            <td th:text="${e.apellido}"></td>
+            <td th:text="${e.edad}"></td>
+            <td class="cursos-list">
+                <div th:if="${e.cursos != null and e.cursos.size() > 0}">
+                    <ul style="margin: 0;">
+                        <li th:each="c : ${e.cursos}">
+                            <strong th:text="${c.nombreCurso}"></strong> 
+                            (Código: <span th:text="${c.codigocurso}"></span>, 
+                            Créditos: <span th:text="${c.numCreditos}"></span>)
+                        </li>
+                    </ul>
+                </div>
+                <div th:if="${e.cursos == null or e.cursos.size() == 0}" class="vacio">
+                    Sin cursos inscritos
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Cursos y sus Estudiantes</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Código Curso</th>
+            <th>Nombre Curso</th>
+            <th>Créditos</th>
+            <th>Semestre</th>
+            <th>Estudiantes Inscritos</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${cursos}">
+            <td th:text="${c.codigocurso}"></td>
+            <td th:text="${c.nombreCurso}"></td>
+            <td th:text="${c.numCreditos}"></td>
+            <td th:text="${c.semestre}"></td>
+            <td class="cursos-list">
+                <div th:if="${c.estudiantes != null and c.estudiantes.size() > 0}">
+                    <ul style="margin: 0;">
+                        <li th:each="e : ${c.estudiantes}">
+                            <strong th:text="${e.nombre + ' ' + e.apellido}"></strong>
+                            (ID: <span th:text="${e.id}"></span>, 
+                            Edad: <span th:text="${e.edad}"></span>)
+                        </li>
+                    </ul>
+                </div>
+                <div th:if="${c.estudiantes == null or c.estudiantes.size() == 0}" class="vacio">
+                    Sin estudiantes inscritos
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
